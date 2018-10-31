@@ -37,6 +37,27 @@ void Application2D::shutdown()
 	delete m_2dRenderer;
 }
 
+void Move()
+{
+	switch()
+	{
+		case 'w':
+		case 'W':
+			break;
+		case 's':
+		case 'S':
+			break;
+		case 'a':
+		case 'A':
+			break;
+		case 'd':
+		case 'D':
+			break;
+		default:
+			break;
+	}
+}
+
 void Application2D::update(float deltaTime) 
 {
 	m_timer += deltaTime;
@@ -99,10 +120,7 @@ void Application2D::draw()
 	// demonstrate spinning sprite
 	m_2dRenderer->setUVRect(int(m_timer* 11) % 10 / 10.0f, 0, 1.f / 11, 1.f / 8);
 	m_2dRenderer->drawSprite(m_shipTexture, 600, 200, 120, 310, 0, 1);
-
-	// draw a thin line
-	/*m_2dRenderer->drawLine(300, 300, 600, 400, 2, 1);*/
-
+	
 	//// draw a moving purple circle
 	//m_2dRenderer->setRenderColour(1, 0, 1, 1);
 	//m_2dRenderer->drawCircle(sin(m_timer) * 100 + 600, 150, 50);

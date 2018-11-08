@@ -37,27 +37,6 @@ void Application2D::shutdown()
 	delete m_2dRenderer;
 }
 
-void Move()
-{
-	switch()
-	{
-		case 'w':
-		case 'W':
-			break;
-		case 's':
-		case 'S':
-			break;
-		case 'a':
-		case 'A':
-			break;
-		case 'd':
-		case 'D':
-			break;
-		default:
-			break;
-	}
-}
-
 void Application2D::update(float deltaTime) 
 {
 	m_timer += deltaTime;

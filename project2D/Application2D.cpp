@@ -2,6 +2,8 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
+#include "TreeNode.h"
+#include "BinaryTree.h"
 
 Application2D::Application2D() 
 {
@@ -13,20 +15,59 @@ Application2D::~Application2D()
 
 }
 
+aie::Font* g_systemFont = nullptr;
+
 bool Application2D::startup()
 {
 	m_2dRenderer = new aie::Renderer2D();
-
-	m_texture = new aie::Texture("./textures/numbered_grid.tga");
-	m_shipTexture = new aie::Texture("./textures/ken-sprite-sheet.png");
-
-	m_font = new aie::Font("./font/consolas.ttf", 32);
-	
-	m_cameraX = 0;
-	m_cameraY = 0;
-	m_timer = 0;
-
+	g_systemFont = new aie::Font("./font/consolas.ttf", 32);
 	return true;
+}
+
+void CDDS_BinaryTreesApp::update(float deltaTime)
+{
+	aie::Input* input = aie::Input::getInstance();
+
+	static int value = 0;
+	ImGui::InputInt("Value", &value);
+
+	if (ImGui::Button("Insert", ImVec2(50, 0)))
+	{
+		m_binaryTree.insert(value);
+		m_selectedNode = m_binaryTree.find(value);
+	}
+
+	if (ImGui::Button("Remove", ImVec2(50, 0)))
+	{
+		m_binaryTree.remove(value);
+	}
+
+	if (ImGui::Button("Find", ImVec2(50, 0)))
+	{
+		m_selectedNode = m_binaryTree.find(value);
+	}
+
+	//exit the application
+	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
+		quit();
+}
+
+void CDDS_BinaryTreesApp::draw()
+{
+	//wipe the screen to the background colour
+	clearscreen();
+
+	//begin drawing sprites
+	m_2drenderer->begin();
+
+	//draw your stuff here!
+	m_binaryTree.draw(m_2drenderer, m_selectedNode);
+
+	//output some text
+	m_2drenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);
+
+	//done drawing sprites
+	m_2drenderer->end();
 }
 
 void Application2D::shutdown()

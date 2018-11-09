@@ -21,7 +21,9 @@ void BinaryTree::insert(int a_nValue)
 		m_pRoot->setData(a_nValue);
 	}
 	TreeNode* currentNode;
+	TreeNode* parentNode;
 	currentNode = m_pRoot;
+	parentNode = m_pRoot;
 
 	while (currentNode != nullptr)
 	{
@@ -40,9 +42,13 @@ void BinaryTree::insert(int a_nValue)
 			break;
 		}
 	}
-	if (currentNode = nullptr)
+	if (a_nValue < parentNode->getData())
 	{
-		a_nValue < 
+		currentNode = currentNode->getLeft();
+	}
+	else
+	{
+		currentNode = currentNode->getRight();
 	}
 }
 
@@ -53,6 +59,41 @@ void BinaryTree::remove(int a_nValue)
 
 TreeNode * BinaryTree::find(int a_nValue)
 {
+	if (isEmpty())
+	{
+		m_pRoot->setData(a_nValue);
+	}
+	TreeNode* currentNode;
+	TreeNode* parentNode;
+	currentNode = m_pRoot;
+	parentNode = m_pRoot;
+
+	while (currentNode != nullptr)
+	{
+		if (a_nValue < currentNode->getData())
+		{
+			currentNode->getLeft();
+			continue;
+		}
+		if (a_nValue > currentNode->getData())
+		{
+			currentNode->getRight();
+			continue;
+		}
+		if (a_nValue == currentNode->getData())
+		{
+			break;
+		}
+	}
+	if (a_nValue < parentNode->getData())
+	{
+		currentNode = currentNode->getLeft();
+	}
+	else
+	{
+		currentNode = currentNode->getRight();
+	}
+
 	return nullptr;
 }
 
@@ -63,6 +104,24 @@ void BinaryTree::draw(aie::Renderer2D * renderer, TreeNode * selected)
 
 bool BinaryTree::findNode(int a_nSearchValue, TreeNode ** ppOutNode, TreeNode ** ppOutParent)
 {
+	TreeNode* currentNode = m_pRoot;
+
+	while (currentNode != nullptr)
+	{
+		if (a_nSearchValue == currentNode->getData())
+		{
+			return currentNode;
+			return ppOutParent;
+		}
+		else if (a_nSearchValue < currentNode->getData())
+		{
+			currentNode = currentNode->getLeft();
+		}
+		else
+		{
+			currentNode = currentNode->getRight();
+		}
+	}
 	return false;
 }
 

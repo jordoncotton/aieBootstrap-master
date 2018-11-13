@@ -54,7 +54,7 @@ void BinaryTree::insert(int a_nValue)
 
 void BinaryTree::remove(int a_nValue)
 {
-
+	
 }
 
 TreeNode * BinaryTree::find(int a_nValue)

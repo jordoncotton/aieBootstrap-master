@@ -54,13 +54,75 @@ void BinaryTree::insert(int a_nValue)
 
 void BinaryTree::remove(int a_nValue)
 {
-	if (currentNode->hasRight())
-	{
-		while (a_nValue)
+	TreeNode* currentNode = m_pRoot;
+		TreeNode* parentNode = m_pRoot;
+
+		TreeNode** ptrCurrentNode = &currentNode;
+		TreeNode** ptrParentNode = &parentNode;
+
+		if (findNode(a_nValue, ptrCurrentNode, ptrParentNode))
 		{
-			;
+			if (currentNode->hasRight())
+			{
+				TreeNode* IterCurrent = (*ptrCurrentNode);
+				TreeNode* IterParent = (*ptrParentNode);
+			}
+
+			if (IterCurrent->hasRight())
+			{
+				IterParent = IterCurrent;
+				IterCurrent = IterCurrent->getRight();
+			}
+
+			while (IterCurrent ->hasLeft())
+			{
+				IterParent = IterCurrent;
+				IterCurrent = IterCurrent->getLeft();
+			}
+
+			//sets the current nodes data to the iterating currents node data
+			currentNode->setData(IterCurrent->getData());
+
+			//checks if the Iterating parents nodes left eqauls the Iterator currents node
+			if (IterParent->getLeft() == IterCurrent)
+			{
+				//sets Iterator parents left node is set to Iterator currents right node 
+				IterParent->setLeft(IterCurrent->getRight());
+			}
+
+			//checks if the Iterating parents nodes right eqauls the Iterator currents node
+			else if (IterParent->getRight() == IterCurrent)
+			{
+				//sets Iterator parents right node is set to Iterator currents right node 
+				IterParent->setRight(IterCurrent->getRight());
+			}
+			delete IterCurrent;
 		}
-	}
+
+		else
+		{
+			//checks if the parents nodes left eqauls the currents node
+			if (parentNode->getLeft() == currentNode)
+			{
+				//sets parents left node is set to currents right node 
+				parentNode->setLeft(currentNode->getLeft());
+			}
+
+			//checks if the parents nodes right eqauls the currents node
+			else if (parentNode->getRight() == currentNode)
+			{
+				//sets parents right node is set to currents right node 
+				parentNode->setRight(currentNode->getLeft());
+			}
+
+			//checks if the root equals the currents node
+			else if (m_pRoot == currentNode)
+			{
+				//sets the root to the current nodes left
+				m_pRoot = currentNode->getLeft();
+			}
+			delete currentNode;
+		}
 }
 
 TreeNode * BinaryTree::find(int a_nValue)

@@ -54,49 +54,58 @@ void BinaryTree::insert(int a_nValue)
 
 void BinaryTree::remove(int a_nValue)
 {
+	//created two nodes that are set to the root
 	TreeNode* currentNode = m_pRoot;
 		TreeNode* parentNode = m_pRoot;
 
+		//created two nodes pointers that are set to the nodes we just created
 		TreeNode** ptrCurrentNode = &currentNode;
 		TreeNode** ptrParentNode = &parentNode;
 
+		//checks to see if the node you are finding exist
 		if (findNode(a_nValue, ptrCurrentNode, ptrParentNode))
 		{
+			//checks if the current node has a right node
 			if (currentNode->hasRight())
 			{
+				//creates two Iterating nodes set to the node pointers
 				TreeNode* IterCurrent = (*ptrCurrentNode);
 				TreeNode* IterParent = (*ptrParentNode);
 			}
-
-			if (IterCurrent->hasRight())
+			//checks of the Iterating currents node has right node
+			if (currentNode->hasRight())
 			{
-				IterParent = IterCurrent;
-				IterCurrent = IterCurrent->getRight();
+				//points Iterator currents node to its right
+				//while making Iterator parents node point to Iterator currents node
+				parentNode = currentNode;
+				currentNode = currentNode->getRight();
 			}
-
-			while (IterCurrent ->hasLeft())
+			//runs while the Iterator currents node has left node 
+			while (currentNode ->hasLeft())
 			{
-				IterParent = IterCurrent;
-				IterCurrent = IterCurrent->getLeft();
+				//points Iterator currents node to its left
+				//while making Iterator parents node point to Iterator currents node
+				parentNode = currentNode;
+				currentNode = currentNode->getLeft();
 			}
 
 			//sets the current nodes data to the iterating currents node data
-			currentNode->setData(IterCurrent->getData());
+			currentNode->setData(currentNode->getData());
 
 			//checks if the Iterating parents nodes left eqauls the Iterator currents node
-			if (IterParent->getLeft() == IterCurrent)
+			if (parentNode->getLeft() == currentNode)
 			{
-				//sets Iterator parents left node is set to Iterator currents right node 
-				IterParent->setLeft(IterCurrent->getRight());
+			//sets Iterator parents left node is set to Iterator currents right node 
+			parentNode->setLeft(currentNode->getRight());
 			}
 
 			//checks if the Iterating parents nodes right eqauls the Iterator currents node
-			else if (IterParent->getRight() == IterCurrent)
+			else if (parentNode->getRight() == currentNode)
 			{
 				//sets Iterator parents right node is set to Iterator currents right node 
-				IterParent->setRight(IterCurrent->getRight());
+				parentNode->setRight(currentNode->getRight());
 			}
-			delete IterCurrent;
+			delete currentNode;
 		}
 
 		else

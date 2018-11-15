@@ -6,6 +6,9 @@ extern aie::Font* g_systemFont;
 
 TreeNode::TreeNode(int value)
 {
+	m_left = nullptr;
+	m_right = nullptr;
+	m_value = value;
 }
 
 TreeNode::~TreeNode()

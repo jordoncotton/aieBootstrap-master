@@ -53,35 +53,6 @@ void CDDS_BinaryTreesApp::update(float deltaTime)
 
 	//exit the application
 	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
-		quit();
-
-	// use arrow keys to move camera
-	if (input->isKeyDown(aie::INPUT_KEY_UP))
-	{
-		m_cameraY += 100.0f * deltaTime;
-	}
-
-
-	if (input->isKeyDown(aie::INPUT_KEY_DOWN))
-	{
-		m_cameraY -= 100.0f * deltaTime;
-	}
-
-
-	if (input->isKeyDown(aie::INPUT_KEY_LEFT))
-	{
-		m_cameraX -= 100.0f * deltaTime;
-	}
-
-
-	if (input->isKeyDown(aie::INPUT_KEY_RIGHT))
-	{
-		m_cameraX += 100.0f * deltaTime;
-	}
-
-
-	// exit the application
-	if (input->isKeyDown(aie::INPUT_KEY_ESCAPE))
 	{
 		quit();
 	}
@@ -110,28 +81,7 @@ void CDDS_BinaryTreesApp::shutdown()
 	delete m_2dRenderer;
 }
 
-Application2D::Application2D()
-{
-	
-}
-
-Application2D::~Application2D()
-{
-}
-
 bool Application2D::startup()
 {
 	return false;
-}
-
-void Application2D::shutdown()
-{
-}
-
-void Application2D::update(float deltaTime)
-{
-}
-
-void Application2D::draw()
-{
 }

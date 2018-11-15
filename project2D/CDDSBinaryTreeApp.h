@@ -7,7 +7,9 @@
 #include <imgui.h>
 #include <Font.h>
 
-class CDDS_BinaryTreesApp : public aie::Application {
+class CDDS_BinaryTreesApp : public aie::Application 
+{
+
 public:
 
 	CDDS_BinaryTreesApp();

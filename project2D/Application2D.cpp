@@ -76,12 +76,4 @@ void CDDS_BinaryTreesApp::draw()
 	m_2dRenderer->end();
 }
 
-void CDDS_BinaryTreesApp::shutdown()
-{
-	delete m_2dRenderer;
-}
 
-bool Application2D::startup()
-{
-	return false;
-}

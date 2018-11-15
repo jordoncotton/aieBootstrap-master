@@ -19,7 +19,7 @@ bool BinaryTree::isEmpty() const
 	return false;
 }
 
-void BinaryTree::insert(int a_nValue)
+void BinaryTree::insert(int a_nValue)  
 {
 	if (isEmpty())
 	{

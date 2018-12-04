@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Application.h"
-#include "Renderer2D.h"
 #include "BinaryTree.h"
 #include <Input.h>
 #include <imgui.h>

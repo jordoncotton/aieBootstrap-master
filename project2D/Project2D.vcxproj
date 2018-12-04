@@ -162,7 +162,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Application2D.cpp" />
+    <ClCompile Include="CDDSBinaryTreeApp.cpp" />
     <ClCompile Include="BinaryTree.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TreeNode.cpp" />

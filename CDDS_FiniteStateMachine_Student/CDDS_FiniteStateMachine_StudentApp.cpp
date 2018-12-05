@@ -30,7 +30,7 @@ bool CDDS_FiniteStateMachine_StudentApp::startup()
 	m_font = new aie::Font("../bin/font/consolas.ttf", 32);
 
 	FiniteStateMachine* playerFsm = new FiniteStateMachine(1);
-	playerFsm->addState(PLAYER_STATE_CONTROLLED, new PlayerControlledState());
+	//playerFsm->addState(PLAYER_STATE_CONTROLLED, new PlayerControlledState());
 	playerFsm->forceState(PLAYER_STATE_CONTROLLED);
 
 	m_player = new GameObject(playerFsm);

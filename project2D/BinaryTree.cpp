@@ -12,51 +12,48 @@ BinaryTree::~BinaryTree()
 
 bool BinaryTree::isEmpty() const
 {
-	if (m_pRoot == nullptr)
-	{
-		return true;
-	}
-	return false;
+	return (m_pRoot == nullptr);
 }
 
 void BinaryTree::insert(int a_nValue)  
 {
+	TreeNode* templates;
+	TreeNode* currentNode;
+	TreeNode* parentNode;
+
 	if (isEmpty())
 	{
 		m_pRoot = new TreeNode(a_nValue);
-		m_pRoot->setLeft(nullptr);
-		m_pRoot->setRight(nullptr);
-		return;
-	}
-	TreeNode* currentNode;
-	TreeNode* parentNode;
-	currentNode = m_pRoot;
-	parentNode = m_pRoot;
-
-	while (currentNode != nullptr)
-	{
-		if (a_nValue < currentNode->getData())
-		{
-			currentNode->getLeft();
-			continue;
-		}
-		if (a_nValue > currentNode->getData())
-		{
-			currentNode->getRight();
-			continue;
-		}
-		if (a_nValue == currentNode->getData())
-		{
-			break;
-		}
-	}
-	if (a_nValue < parentNode->getData())
-	{
-		currentNode = currentNode->getLeft();
 	}
 	else
 	{
-		currentNode = currentNode->getRight();
+		templates = new TreeNode(a_nValue);
+		currentNode = m_pRoot;
+	}
+
+	while (currentNode != nullptr)
+	{
+		if (a_nValue > currentNode->getData())
+		{
+			parentNode = currentNode;
+			currentNode = currentNode->getRight();
+		}
+		else if (a_nValue < currentNode->getData())
+		{
+			parentNode = currentNode;
+			currentNode = currentNode->getLeft();
+		}
+		else if (currentNode->getData() == a_nValue)
+			return;
+	}
+
+	if (a_nValue < parentNode->getData())
+	{
+		parentNode->setLeft(templates);
+	}
+	else if(a_nValue > parentNode->getData())
+	{
+		parentNode->setRight(templates);
 	}
 }
 
@@ -144,35 +141,36 @@ void BinaryTree::remove(int a_nValue)
 
 TreeNode* BinaryTree::find(int a_nValue)
 {
-	if (isEmpty())
-	{
-		m_pRoot->setData(a_nValue);
-	}
-	TreeNode* currentNode;
-	TreeNode* parentNode;
-	currentNode = m_pRoot;
-	parentNode = m_pRoot;
+	TreeNode* currentNode = m_pRoot;
 
 	while (currentNode != nullptr)
 	{
-		if (a_nValue < currentNode->getData())
+		if (currentNode->getData() > a_nValue)
 		{
-			currentNode->getLeft();
-			continue;
+			if (currentNode->hasLeft())
+			{
+				currentNode = currentNode->getLeft();
+			}
+			else
+			{
+				return m_pRoot;
+			}
 		}
-		if (a_nValue > currentNode->getData())
+		else if (currentNode->getData() < a_nValue)
 		{
-			currentNode->getRight();
-			continue;
-		}
-		if (a_nValue == currentNode->getData())
-		{
-			break;
+			if (currentNode->hasRight())
+			{
+				currentNode = currentNode->getRight();
+			}
+			else
+			{
+				return m_pRoot;
+			}
 		}
 	}
-	if (a_nValue < parentNode->getData())
+	if (currentNode->getData() == a_nValue)
 	{
-		currentNode = currentNode->getLeft();
+		return currentNode;
 	}
 	else
 	{
@@ -193,18 +191,35 @@ bool BinaryTree::findNode(int a_nSearchValue, TreeNode** ppOutNode, TreeNode** p
 
 	while (currentNode != nullptr)
 	{
-		if (a_nSearchValue == currentNode->getData())
+		if ((*ppOutNode)->getData() < a_nSearchValue)
 		{
-			return currentNode;
-			return ppOutParent;
+			//checks to see if theres a stopping point
+			if ((*ppOutNode)->hasRight())
+			{
+				*ppOutParent = *ppOutNode;
+				*ppOutNode = (*ppOutNode)->getRight();
+			}
+			else
+			{
+				return false;
+			}
 		}
-		else if (a_nSearchValue < currentNode->getData())
+		else if ((*ppOutNode)->getData() > a_nSearchValue)
 		{
-			currentNode = currentNode->getLeft();
+			//checks to see if theirs a stopping point
+			if ((*ppOutNode)->hasLeft())
+			{
+				*ppOutParent = *ppOutNode;
+				*ppOutNode = (*ppOutNode)->getLeft();
+			}
+			else
+			{
+				return false;
+			}
 		}
-		else
+		else if ((*ppOutNode)->getData() == a_nSearchValue)
 		{
-			currentNode = currentNode->getRight();
+			return true;
 		}
 	}
 	return false;

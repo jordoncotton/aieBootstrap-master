@@ -2,9 +2,10 @@
 
 #include "Application.h"
 #include "Renderer2D.h"
-#include ""
 
-class Application2D : public aie::Application {
+class Application2D : public aie::Application 
+{
+
 public:
 
 	Application2D();

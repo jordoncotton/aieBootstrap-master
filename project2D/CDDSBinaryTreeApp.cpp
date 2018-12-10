@@ -1,10 +1,8 @@
-
-#include "Texture.h"
-#include "Font.h"
+#include "imgui.h"
 #include "Input.h"
-#include "TreeNode.h"
-#include "BinaryTree.h"
 #include "CDDSBinaryTreeApp.h"
+
+extern aie::Font* g_systemFont = nullptr;
 
 CDDS_BinaryTreesApp::CDDS_BinaryTreesApp()
 {
@@ -16,7 +14,7 @@ CDDS_BinaryTreesApp::~CDDS_BinaryTreesApp()
 
 }
 
-aie::Font* g_systemFont = nullptr;
+
 
 bool CDDS_BinaryTreesApp::startup()
 {
@@ -27,6 +25,7 @@ bool CDDS_BinaryTreesApp::startup()
 
 void CDDS_BinaryTreesApp::shutdown()
 {
+	delete m_2dRenderer;
 }
 
 void CDDS_BinaryTreesApp::update(float deltaTime)
@@ -71,7 +70,7 @@ void CDDS_BinaryTreesApp::draw()
 	m_2dRenderer->begin();
 
 	//draw your stuff here!
-	m_binaryTree.draw(m_2dRenderer, m_selectedNode);
+	m_binaryTree.draw(m_2dRenderer,g_systemFont, m_selectedNode);
 
 	//output some text
 	m_2dRenderer->drawText(g_systemFont, "Press ESC to quit", 0, 0);

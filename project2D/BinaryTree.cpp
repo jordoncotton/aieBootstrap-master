@@ -80,25 +80,8 @@ void BinaryTree::remove(int a_nValue)
 				{
 					delete currentNode;
 					m_pRoot = nullptr;
+					return;
 				}
-				else if (!m_pRoot->hasLeft() && m_pRoot->hasRight())
-				{
-					
-				}
-				//else if (m_pRoot->hasLeft() && !m_pRoot->hasRight())
-				//{
-				//	currentNode = m_pRoot->getLeft();
-				//	while (currentNode->hasRight())
-				//	{
-				//		//points Iterator currents node to its left
-				//		//while making Iterator parents node point to Iterator currents node
-				//		parentNode = currentNode;
-				//		currentNode = currentNode->getRight();
-				//	}
-				//	m_pRoot->setData(currentNode->getData());
-				//	parentNode->setLeft(currentNode->getRight());
-				//	delete currentNode;
-				//}
 			}
 			if (currentNode->hasLeft() && currentNode->hasRight())
 			{
@@ -120,7 +103,7 @@ void BinaryTree::remove(int a_nValue)
 				}
 
 				//sets the current nodes data to the iterating currents node data
-				if (parentNode == m_pRoot)
+				if (IterParent == m_pRoot)
 					parentNode->setData(IterCurrent->getData());
 				else
 					IterParent->setData(IterCurrent->getData());
@@ -180,10 +163,20 @@ void BinaryTree::remove(int a_nValue)
 				}
 				else
 				{
-					currentNode = parentNode->getRight();
-					parentNode->setData(currentNode->getData());
-					parentNode->setRight(currentNode->getRight());
-					parentNode->setLeft(currentNode->getLeft());
+					if (parentNode->hasRight())
+					{
+						currentNode = parentNode->getRight();
+						parentNode->setData(currentNode->getData());
+						parentNode->setRight(currentNode->getRight());
+						parentNode->setLeft(currentNode->getLeft());
+					}
+					else if (parentNode->hasLeft())
+					{
+						currentNode = parentNode->getLeft();
+						parentNode->setData(currentNode->getData());
+						parentNode->setRight(currentNode->getRight());
+						parentNode->setLeft(currentNode->getLeft());
+					}
 				}
 				delete currentNode;
 			}
@@ -204,7 +197,7 @@ TreeNode* BinaryTree::find(int a_nValue)
 			}
 			else
 			{
-				return m_pRoot;
+				return currentNode;
 			}
 		}
 		else if (currentNode->getData() < a_nValue)
@@ -215,12 +208,12 @@ TreeNode* BinaryTree::find(int a_nValue)
 			}
 			else
 			{
-				return m_pRoot;
+				return currentNode;
 			}
 		}
 		else
 		{
-			return m_pRoot;
+			return currentNode;
 		}
 	}
 	if (currentNode->getData() == a_nValue)
